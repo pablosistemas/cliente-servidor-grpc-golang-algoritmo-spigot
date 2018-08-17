@@ -3,7 +3,7 @@ CLIENT_OUT := "bin/cliente"
 API_OUT := "api/gRpc/api.pb.go"
 API_REST_OUT := "api/rest/api.pb.gw.go"
 API_SWAG_OUT := "api/api.swagger.json"
-PKG := "tracksale.prova"
+PKG := "cliente-servidor-grpc-golang-algoritmo-spigot"
 SERVER_PKG_BUILD := "${PKG}/servidor"
 CLIENT_PKG_BUILD := "${PKG}/cliente"
 PKG_LIST := $(shell go list ${PKG}/... | grep -v /vendor/)
@@ -14,24 +14,24 @@ all: servidor cliente
 
 api/api.pb.go: api/gRpc/api.proto
 	@protoc -I api/ \
-		-I${GOPATH}/src \
-		-I${GOPATH}/src/tracksale.prova/api/gRpc \
-		--go_out=plugins=grpc:api \
+		-I${GOPATH}src \
+		-I${GOPATH}\src/cliente-servidor-grpc-golang-algoritmo-spigot/api/gRpc \
+		--go_out=plugins=grpc;api/gRpc \
 		api/gRpc/api.proto
 
 api/api.pb.gw.go: api/api.proto
 	@protoc -I api/ \
 		-I${GOPATH}/src \
-		-I${GOPATH}/src/tracksale.prova/api \
+		-I${GOPATH}/src/cliente-servidor-grpc-golang-algoritmo-spigot/api \
 		--grpc-gateway_out=logtostderr=true:api \
-		api/api.proto
+		api/gRpc/api.proto
 
 api/api.swagger.json: api/api.proto
 	@protoc -I api/ \
 		-I${GOPATH}/src \
-		-I${GOPATH}/src/tracksale.prova/api \
+		-I${GOPATH}/src/cliente-servidor-grpc-golang-algoritmo-spigot/api \
 		--swagger_out=logtostderr=true:api \
-		api/api.proto
+		api/gRpc/api.proto
 
 api: api/api.pb.go # api/api.pb.gw.go api/api.swagger.json ## Auto-generate grpc go sources
 

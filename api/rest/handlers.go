@@ -13,7 +13,10 @@ func Index(w http.ResponseWriter, r *http.Request) {
 }
 
 func MostraStatusPi(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintln(w, "Status")
+    r.ParseForm()
+    x := r.Form.Get("valor_pi")
+    fmt.Fprintf(w, "Sucesso")
+    fmt.Printf("Valor atual de PI: %s\n", x)
 }
 
 func TodoIndex(w http.ResponseWriter, r *http.Request) {

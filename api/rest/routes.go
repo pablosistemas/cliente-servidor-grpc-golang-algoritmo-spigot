@@ -2,7 +2,7 @@ package main
 
 import (
   "github.com/gorilla/mux"
-  "tracksale.prova/estruturas/route"
+  "cliente-servidor-grpc-golang-algoritmo-spigot/estruturas/route"
 )
 
 type Routes []route.Route

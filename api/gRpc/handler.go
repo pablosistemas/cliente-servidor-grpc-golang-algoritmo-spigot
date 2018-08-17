@@ -2,7 +2,7 @@ package api
 import (
   "log"
   "golang.org/x/net/context"
-  "tracksale.prova/src"
+  "cliente-servidor-grpc-golang-algoritmo-spigot/src"
 )
 
 type Server struct {

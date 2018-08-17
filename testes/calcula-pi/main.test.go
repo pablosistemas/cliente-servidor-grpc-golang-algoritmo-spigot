@@ -1,21 +1,21 @@
 package main
 
 import (
-	"tracksale.prova/src"
-	"tracksale.prova/estruturas"
+	"cliente-servidor-grpc-golang-algoritmo-spigot/src"
+	"cliente-servidor-grpc-golang-algoritmo-spigot/estruturas/thread"
 	"fmt"
 	"strconv"
 )
 
 
-func calculaTermoDePi(nThread int, c chan estruturas.Thread) {
+func calculaTermoDePi(nThread int, c chan thread.Thread) {
 	resultado := calculatermopi.AlgoritmoSpigotCalculaEnesimoTermoDePi(int32(nThread))
-	c <- estruturas.Thread {int32(nThread), resultado}
+	c <- thread.Thread {int32(nThread), resultado}
 }
 
 func main() {
 	n := 25
-	canal := make(chan estruturas.Thread)
+	canal := make(chan thread.Thread)
 	digitos := make([]string, n + 1)
 
 	digitos[0] = "3"

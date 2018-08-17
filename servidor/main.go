@@ -3,7 +3,7 @@ import (
   "fmt"
   "log"
   "net"
-  "tracksale.prova/api/gRpc"
+  "cliente-servidor-grpc-golang-algoritmo-spigot/api/gRpc"
   "google.golang.org/grpc"
 )
 // main start a gRPC server and waits for connection
