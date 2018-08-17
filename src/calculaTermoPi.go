@@ -1,11 +1,5 @@
-package main
-
+package calculatermopi
 import (
-    //"encoding/json"
-    //"log"
-    //"net/http"
-	//"github.com/gorilla/mux"
-	"fmt"
 	"math"
 )
 
@@ -26,45 +20,39 @@ func initializarVetor(n int) ([]int) {
 	return v
 }
 
-func algoritmoSpigotCalculaEnesimoTermoDePi(n int) []int {
+func AlgoritmoSpigotCalculaEnesimoTermoDePi(n int32) int32 {
+	// começa a partir do primeiro decimal
+	numeroTermos := n + 1
+	limiteVetor := int32(math.Floor(10.0*float64(numeroTermos)/3.0))
 	
-	limiteVetor := int(math.Floor(10.0*float64(n)/3.0))
-	
-	A := make([]int, limiteVetor)
-	num := make([]int, limiteVetor)
-	den := make([]int, limiteVetor)
-	digitos := make([]int, n)
-
-	for idxInicializacao := 1; idxInicializacao <= limiteVetor; idxInicializacao++ {
+	A := make([]int32, limiteVetor)
+	num := make([]int32, limiteVetor)
+	den := make([]int32, limiteVetor)
+	digitos := make([]int32, numeroTermos)
+	var idxInicializacao int32
+	for idxInicializacao = 1; idxInicializacao <= limiteVetor; idxInicializacao++ {
 		A[idxInicializacao - 1] = 2
 		num[idxInicializacao - 1] = idxInicializacao - 1
 		den[idxInicializacao - 1] = 2*idxInicializacao - 1
 	}
-
-	for digito := 0; digito < n; digito++ {
-		for j := 1; j <= limiteVetor; j++ {
+	var digito, i, j int32
+	for digito = 0; digito < int32(numeroTermos); digito++ {
+		for j = 1; j <= limiteVetor; j++ {
 			A[j - 1] = A[j - 1] * 10
 		}
 
-		carryOut := 0
-		for i := limiteVetor - 1; i > 0; i-- {
-			ACarryOuted := carryOut + A[i]
+		var carryOut int32 = 0
+		for i = limiteVetor - 1; i > 0; i-- {
+			var ACarryOuted int32 = carryOut + A[i]
 			A[i] = ACarryOuted % den[i]
-			carryOut = int(ACarryOuted / den[i]) * num[i]
+			carryOut = int32(ACarryOuted / den[i]) * num[i]
 		}
 
 		ACarryOuted := carryOut + A[0]
 		menorPotencia := math.Floor(math.Log10(float64(ACarryOuted)))
-		digitos[digito] = int(ACarryOuted / int(math.Pow(10, menorPotencia)))
-		A[0] = ACarryOuted % (digitos[digito] * int(math.Pow(10, menorPotencia)))
+		digitos[digito] = int32(ACarryOuted / int32(math.Pow(10, menorPotencia)))
+		A[0] = ACarryOuted % (digitos[digito] * int32(math.Pow(10, menorPotencia)))
 	}
-	
-	return digitos
-}
 
-func main() {
-	/*router := mux.NewRouter()
-	router.HandleFunc("/calculaTermoDePi/{termo}", GetTermo).Methods("GET")
-	log.Fatal(http.ListenAndServe(":8081", router))*/
-	fmt.Println(algoritmoSpigotCalculaEnesimoTermoDePi(4))
+	return digitos[n]
 }

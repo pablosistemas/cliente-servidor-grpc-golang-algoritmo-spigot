@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package api;
+
+message PingRequest {
+  int32 TermoIndice = 1;
+}
+
+message PingResponse {
+  int32 TermoValor = 1;
+}
+
+service Ping {
+  rpc GetTermoPi(PingRequest) returns (PingResponse) {}
+}
+
