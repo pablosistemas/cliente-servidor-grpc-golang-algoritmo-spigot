@@ -1,26 +1,26 @@
 package main
 import (
-  "tracksale.prova/estruturas"
+  "tracksale.prova/estruturas/thread"
   "golang.org/x/net/context"
   "google.golang.org/grpc"
-  "tracksale.prova/api"
+  "tracksale.prova/api/gRpc"
   "strconv"
   "log"
   "os"
 )
 
-func calculaTermoDePi(nThread int, canal chan estruturas.Thread, clienteApi api.PingClient) {
+func calculaTermoDePi(nThread int, canal chan thread.Thread, clienteApi api.PingClient) {
   resultado, err := clienteApi.GetTermoPi(context.Background(), &api.PingRequest{TermoIndice: int32(nThread)})
   if err != nil {
     log.Fatalf("Error when calling GetTermoPi: %s", err)
   }
-  canal <- estruturas.Thread{int32(nThread), resultado.TermoValor}
+  canal <- thread.Thread{int32(nThread), resultado.TermoValor}
 }
 
 func main() {
   var conexaoRpc *grpc.ClientConn
   conexaoRpc, err := grpc.Dial(":7777", grpc.WithInsecure())
-  canal := make(chan estruturas.Thread)
+  canal := make(chan thread.Thread)
 
   if err != nil {
     log.Fatalf("did not connect: %s", err)

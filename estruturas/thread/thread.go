@@ -1,4 +1,4 @@
-package estruturas
+package thread
 
 type Thread struct {
 	Indice int32

@@ -1,7 +1,7 @@
 SERVER_OUT := "bin/servidor"
 CLIENT_OUT := "bin/cliente"
-API_OUT := "api/api.pb.go"
-API_REST_OUT := "api/api.pb.gw.go"
+API_OUT := "api/gRpc/api.pb.go"
+API_REST_OUT := "api/rest/api.pb.gw.go"
 API_SWAG_OUT := "api/api.swagger.json"
 PKG := "tracksale.prova"
 SERVER_PKG_BUILD := "${PKG}/servidor"
@@ -12,12 +12,12 @@ PKG_LIST := $(shell go list ${PKG}/... | grep -v /vendor/)
 
 all: servidor cliente
 
-api/api.pb.go: api/api.proto
+api/api.pb.go: api/gRpc/api.proto
 	@protoc -I api/ \
 		-I${GOPATH}/src \
-		-I${GOPATH}/src/tracksale.prova/api \
+		-I${GOPATH}/src/tracksale.prova/api/gRpc \
 		--go_out=plugins=grpc:api \
-		api/api.proto
+		api/gRpc/api.proto
 
 api/api.pb.gw.go: api/api.proto
 	@protoc -I api/ \
