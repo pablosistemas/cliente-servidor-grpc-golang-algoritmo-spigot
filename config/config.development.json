@@ -1,0 +1,10 @@
+{
+    "gRpc": {
+        "Endereco": "http://localhost",
+        "Porta": 7777
+    },
+    "apiRest": {
+        "Endereco": "http://localhost",
+        "Porta": 8080
+    }
+}

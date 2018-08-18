@@ -2,10 +2,15 @@ package main
 
 import (
     "log"
+    "fmt"
     "net/http"
+
+    "cliente-servidor-grpc-golang-algoritmo-spigot/config"
 )
 
 func main() {
-    router := NewRouter()
-    log.Fatal(http.ListenAndServe(":8080", router))
+  config := ambiente.CarregaConfiguracoesAmbiente("config/config.development.json")
+  router := NewRouter()
+
+  log.Fatal(http.ListenAndServe(fmt.Sprintf(":%d", config.ApiRest.Porta), router))
 }
