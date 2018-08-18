@@ -28,7 +28,7 @@ bin/servidor
 
 API REST:
 ```sh
-bin/servidor
+bin/apiRest
 ```
 
 Cliente gRPC/REST para 50 casas decimais de PI:
