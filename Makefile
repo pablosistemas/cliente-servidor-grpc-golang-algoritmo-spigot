@@ -49,7 +49,7 @@ cliente: dep api ## Build the binary file for client
 	@go build -i -v -o $(CLIENT_OUT) $(CLIENT_PKG_BUILD)
 
 clean: ## Remove previous builds
-	@rm $(SERVER_OUT) $(CLIENT_OUT) $(API_GRPC_OUT) $(API_REST_OUT) $(API_REST_OUT)
+	@rm $(SERVER_OUT) $(CLIENT_OUT) $(API_GRPC_OUT) $(API_REST_OUT)
 
 all: cliente servidor api
 
